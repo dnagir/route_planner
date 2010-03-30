@@ -77,4 +77,14 @@ Output #7: 3
 Output #8: 9
 Output #9: 9
 Output #10: 7
- ==========
+
+
+
+REQUIREMENTS
+==========
+- Ruby 1.8.7
+
+
+USAGE
+=====
+TBD

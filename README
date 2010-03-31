@@ -1,4 +1,11 @@
-TRAINS
+INTRODUCTION
+============
+
+Application should:
+- have a way to supply the input data via text file
+- the application must run :)
+- provide sufficient evidence it is complete
+
 
 Problem
 ========
@@ -80,6 +87,8 @@ Output #10: 7
 
 
 
+
+
 REQUIREMENTS
 ==========
 - Unix/Linux system
@@ -88,6 +97,35 @@ REQUIREMENTS
 - Rake
 
 
+
+
+
 USAGE
 =====
-TBD
+> bin/planner samples/sample.txt
+
+The result are written to the standard output:
+- answer for each task in the file is on a separate line
+- format of the answer is /(\w+):\s(\.)/. First group is the task name, 2nd - the answer.
+
+Also make sure the bin/planner file has execute permissions.
+
+Input File Format
+-----------------
+Line starting with "GRAPH:" defines a graph for the tasks.
+GRAPH: AB10, BC10, CD10, DA10
+
+Line starting with "DISTANCE" will calculate distance of the given route.
+DISTANCE to_nice_city_and_back: ABCDA
+
+Line starting with "SHORTEST" will calculate distance of the shortest path.
+SHORTEST quickly_get_there: A B
+
+Line starting with "COUNT_ROUTES" will calculate the number of different routes between 2 town.
+The example below calculates number of routes between A and B with
+not less than 2 and no more than 4 stop and at a distance not longer than 20
+COUNT_ROUTES my_options: A B 2 4 20
+
+All other lines are ignored.
+
+

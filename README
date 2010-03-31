@@ -84,6 +84,7 @@ REQUIREMENTS
 ==========
 - Unix/Linux system
 - Ruby 1.8.7
+- Ruby Test::Unit
 - Rake
 
 

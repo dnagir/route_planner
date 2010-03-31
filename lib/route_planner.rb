@@ -1,7 +1,4 @@
 # Author:: Dmitriy Nagirnyak (Dmytrii Nagirniak), dnagir@gmail.com, http://dnagir.blogspot.com
-# Copyright:: Copyright (c) 2010 by dnagir@gmail.com
-# License:: MIT, GPL, LGPL
-
 
 # The class provides information about the routes.
 class RoutePlanner
@@ -35,9 +32,18 @@ class RoutePlanner
   end
   
   # Determines the number of possible trips between two points (towns)
-  # Returns nil of no route is available.
+  # Returns 0 of no routes are available.
   # Available hash options are: min_stops, max_stops, max_distance
-  def trips_number(start, finish, opts = {:min_stops => 1, :max_stops => 9999999, :max_distance => MaxDistance})
+  # IMPORTANT: At least one of max_stops, max_distance MUST be provided
+  #   with values in a valid range of a graph.
+  def trips_number(start, finish, opts = { })
+    # TODO: Abuse protection
+    #   make sure max limits are not bigger than they possibly can,
+    #   otherwise the recursion will never stop
+    opts = { :min_stops => 1, :max_stops => MaxDistance, :max_distance => MaxDistance }.merge(opts)
+    total = 0
+    explore_paths(start, finish, opts) { total += 1}
+    total
   end
   
   # Determines the shortest distance between two points (towns).
@@ -72,9 +78,24 @@ class RoutePlanner
   end
   
   private
+
+  # Traverses the whole graph unitl restriction of maximum stops or distance is reached.
+  # Provides feedback via block when the 'finish' point is reached and continues if restrictions allow.
+  def explore_paths(start, finish, opts, stats = {:distance => 0, :stops => 0}, &callback)
+    lower_bound_ok = stats[:stops] >= opts[:min_stops]
+    upper_bound_ok = stats[:distance] <= opts[:max_distance] && stats[:stops] <= opts[:max_stops]
+    
+    callback.call(stats[:path]) if start == finish && lower_bound_ok && upper_bound_ok
+    # Recursion basis: stop exploration when reached upper restrictions
+    if upper_bound_ok    
+      @graph[start].each do |nxt, dist|
+        inner_stats = {:distance => stats[:distance] + dist, :stops => stats[:stops] + 1}
+        explore_paths(nxt, finish, opts, inner_stats, &callback)
+      end
+    end
+  end
   
   # Returns the distance between src and dst.
-  # Zero if none exists in the graph
   def edge(src, dst)    
     @graph[src][dst] || MaxDistance
   end

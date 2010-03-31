@@ -29,10 +29,16 @@ class TestShortestDistance < Test::Unit::TestCase
     assert_equal 9, shortest('C', 'C')
   end
   
-    
-  private
-  
-  def shortest(start, finish)
-    @planner.shortest_distance(start, finish)
+  def test_shortest_a2a
+    assert_equal nil, shortest('A', 'A')
   end
+  
+  def test_circle_a2a
+    assert_equal 40, shortest('A', 'A', CircleGraph)
+  end
+  
+  def test_circle_b2a
+    assert_equal 30, shortest('B', 'A', CircleGraph)
+  end
+
 end

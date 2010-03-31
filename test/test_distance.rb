@@ -22,10 +22,12 @@ class TestDistance < Test::Unit::TestCase
     assert_nil distance('AED')
   end
   
-  private
+  def test_circle_abcda
+    assert_equal 40, distance('ABCDA', CircleGraph)
+  end
   
-  def distance(route)
-    @planner.distance(route)
+  def test_circle_dcbad
+    assert_nil nil, distance('DCBAD', CircleGraph)
   end
   
 end

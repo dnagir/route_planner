@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+
+unless ARGV.first and File.exist? ARGV.first
+  abort "USAGE:  #{$PROGRAM_NAME} FILE_WITH_TASKS"
+end
+
+$LOAD_PATH << File.join(File.dirname(__FILE__), *%w[.. lib])
+
+require "route_planner"
+
+planner = nil
+
+def answer(task, result)
+  puts "#{task}: #{result}"
+end
+
+File.foreach(ARGV.first) do |line|
+  case line
+    when /\AGRAPH: (.+)/
+      planner = RoutePlanner.new($1)
+    when /\ADISTANCE (\w+): (\w+)/
+      if planner 
+        answer $1, planner.distance($2) || 'NO SUCH ROUTE'
+      end
+    when /\ASHORTEST (\w+): (\w) (\w)/
+      if planner 
+        answer $1, planner.shortest_distance($2, $3) || 'NO SUCH ROUTE'
+      end
+    when /\ACOUNT_ROUTES (\w+): (\w) (\w) (\d+) (\d+) (\d+)/
+      if planner 
+        opts = { :min_stops => $4.to_i, :max_stops => $5.to_i, :max_distance => $6.to_i }
+        answer $1, planner.trips_number($2, $3, opts)
+      end
+  end  
+end

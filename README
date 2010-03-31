@@ -104,8 +104,8 @@ USAGE
 =====
 > bin/planner samples/sample.txt
 
-The result are written to the standard output:
-- answer for each task in the file is on a separate line
+The results are written to the standard output:
+- answer for each task from the file is on a separate line
 - format of the answer is /(\w+):\s(\.)/. First group is the task name, 2nd - the answer.
 
 Also make sure the bin/planner file has execute permissions.

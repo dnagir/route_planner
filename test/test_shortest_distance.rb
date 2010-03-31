@@ -1,4 +1,4 @@
-require 'test_helper'
+require 'helper'
 
 class TestShortestDistance < Test::Unit::TestCase
 

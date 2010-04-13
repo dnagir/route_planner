@@ -1,5 +1,8 @@
 require 'test/unit'
 require 'route_planner'
+require 'graph'
+require 'tasks/distance'
+require 'tasks/shortest_distance'
 
 class Test::Unit::TestCase
 
@@ -11,11 +14,16 @@ class Test::Unit::TestCase
   end
   
   def distance(route, graph = MainGraph)
-    RoutePlanner::RoutePlanner.new(graph).distance(route)
+    RoutePlanner::Tasks::DistanceTask.new(RoutePlanner::Graph.parse(graph), route).calculate
   end
   
+  def distance_format(route, graph = MainGraph)
+    RoutePlanner::Tasks::DistanceTask.new(RoutePlanner::Graph.parse(graph), route).format_result
+  end
+
+  
   def shortest(start, finish, graph = MainGraph)
-    RoutePlanner::RoutePlanner.new(graph).shortest_distance(start, finish)
+    RoutePlanner::Tasks::ShortestDistanceTask.new(RoutePlanner::Graph.parse(graph), start, finish).calculate
   end
 
 end

@@ -28,11 +28,13 @@ class TestNode < Test::Unit::TestCase
   def test_get_linked_edge
     e = Edge.link_nodes(@a, @b, 11)
     assert_same e, @a.edge_to('B')
+    assert_nil @a.edge_to('A')
   end
   
   def test_get_linked_node
     e = Edge.link_nodes(@a, @b, 11)
     assert_same e.destination, @a.node_to('B')
+    assert_nil @a.node_to('A')
   end
         
 end

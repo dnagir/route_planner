@@ -25,5 +25,12 @@ class TestGraph < Test::Unit::TestCase
   def test_asking_non_existing_node_should_returns_nil
     assert_nil Graph.parse('AB1, BA2').node('Z')
   end
+  
+  def test_graph_should_include_all_nodes
+    expected = %w{A B C D}
+    Graph.parse('AB1, BC2, CD3').nodes.each do |n|
+      assert expected.include?(n.name)
+    end
+  end
       
 end

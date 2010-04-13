@@ -29,5 +29,14 @@ class TestDistance < Test::Unit::TestCase
   def test_circle_dcbad
     assert_nil nil, distance('DCBAD', CircleGraph)
   end
+
+
+  def test_format_for_valid_path
+    assert_equal '40', distance_format('ABCDA', CircleGraph)
+  end
+    
+  def test_format_for_no_path
+    assert_equal 'NO SUCH ROUTE', distance_format('ABCDC', CircleGraph)
+  end
   
 end

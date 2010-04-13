@@ -1,4 +1,4 @@
-require 'helper'
+require 'functional/helper'
 
 class TestShortestDistance < Test::Unit::TestCase
 
@@ -28,11 +28,7 @@ class TestShortestDistance < Test::Unit::TestCase
   def test_shortest_c2c
     assert_equal 9, shortest('C', 'C')
   end
-  
-  def test_shortest_a2a
-    assert_equal nil, shortest('A', 'A')
-  end
-  
+    
   def test_circle_a2a
     assert_equal 40, shortest('A', 'A', CircleGraph)
   end

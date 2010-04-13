@@ -17,7 +17,7 @@ end
 File.foreach(ARGV.first) do |line|
   case line
     when /\AGRAPH: (.+)/
-      planner = RoutePlanner.new($1)
+      planner = RoutePlanner::RoutePlanner.new($1)
     when /\ADISTANCE (\w+): (\w+)/
       if planner 
         answer $1, planner.distance($2) || 'NO SUCH ROUTE'

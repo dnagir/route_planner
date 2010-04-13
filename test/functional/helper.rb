@@ -7,15 +7,15 @@ class Test::Unit::TestCase
   CircleGraph = 'AB10, BC10, CD10, DA10' # 4 towns connected in a roundabout-like way
   
   def trips_number(start, finish, opts, graph = MainGraph)
-    RoutePlanner.new(graph).trips_number(start, finish, opts)
+    RoutePlanner::RoutePlanner.new(graph).trips_number(start, finish, opts)
   end
   
   def distance(route, graph = MainGraph)
-    RoutePlanner.new(graph).distance(route)
+    RoutePlanner::RoutePlanner.new(graph).distance(route)
   end
   
   def shortest(start, finish, graph = MainGraph)
-    RoutePlanner.new(graph).shortest_distance(start, finish)
+    RoutePlanner::RoutePlanner.new(graph).shortest_distance(start, finish)
   end
 
 end

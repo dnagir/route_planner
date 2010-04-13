@@ -1,4 +1,4 @@
-require 'helper'
+require 'functional/helper'
 
 class TestDistance < Test::Unit::TestCase
 

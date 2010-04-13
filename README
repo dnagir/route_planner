@@ -121,7 +121,7 @@ DISTANCE to_nice_city_and_back: ABCDA
 Line starting with "SHORTEST" will calculate distance of the shortest path.
 SHORTEST quickly_get_there: A B
 
-Line starting with "COUNT_ROUTES" will calculate the number of different routes between 2 town.
+Line starting with "COUNT_ROUTES" will calculate the number of different routes between 2 towns.
 The example below calculates number of routes between A and B with
 not less than 2 and no more than 4 stop and at a distance not longer than 20
 COUNT_ROUTES my_options: A B 2 4 20

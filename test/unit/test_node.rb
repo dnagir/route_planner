@@ -4,6 +4,7 @@ class TestNode < Test::Unit::TestCase
 
   def test_node_has_valid_attributes
     assert_equal 'A', @a.name
+    assert_equal 0, @a.edges.length
   end
   
   def test_node_has_edges

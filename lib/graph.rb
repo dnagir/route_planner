@@ -1,18 +1,21 @@
+# Author:: Dmitriy Nagirnyak (Dmytrii Nagirniak), dnagir@gmail.com, http://dnagir.blogspot.com
+
 require 'node'
 require 'edge'
 
 module RoutePlanner
   
-  # Represents directed graph with weights
+  # Represents oriented graph with weights
   class Graph
     attr_reader :nodes
+    
     # Initialises the graph with the list of its nodes
     def initialize(nodes)
       @nodes = nodes
     end
     
   
-    # Returns a node from the given graph_info
+    # Returns a node by its name
     # nil if none exists
     def node(name)
       @nodes.find { |n| n.equal?(name) }

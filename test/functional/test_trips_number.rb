@@ -9,6 +9,10 @@ class TestTripsNumber < Test::Unit::TestCase
   def test_a2c_with_exactly_4_stops
     assert_equal 3, trips_number('A', 'C', :min_stops => 4, :max_stops => 4)
   end
+  
+  def test_a2c_with_exactly_4_stops_and_data_passed_as_string
+    assert_equal 2, trips_number('A', 'C', :min_stops => '4', :max_stops => '4', :max_distance => '25')
+  end
 
   def test_c2c_with_distance_less_than_30
     assert_equal 7, trips_number('C', 'C', :max_distance => 29)

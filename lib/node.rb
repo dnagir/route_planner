@@ -1,3 +1,5 @@
+# Author:: Dmitriy Nagirnyak (Dmytrii Nagirniak), dnagir@gmail.com, http://dnagir.blogspot.com
+
 module RoutePlanner
   
   # Represents a node in the oriented graph

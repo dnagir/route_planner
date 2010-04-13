@@ -1,35 +1,33 @@
 #!/usr/bin/env ruby
 
 unless ARGV.first and File.exist? ARGV.first
-  abort "USAGE:  #{$PROGRAM_NAME} FILE_WITH_TASKS"
+  abort "USAGE:  #{$PROGRAM_NAME} path/to/file/with/tasks"
 end
 
 $LOAD_PATH << File.join(File.dirname(__FILE__), *%w[.. lib])
 
 require "route_planner"
 
-planner = nil
+
+graph = nil # The graph to be used in tasks
 
 def answer(task, result)
   puts "#{task}: #{result}"
 end
 
 File.foreach(ARGV.first) do |line|
-  case line
-    when /\AGRAPH: (.+)/
-      planner = RoutePlanner::RoutePlanner.new($1)
-    when /\ADISTANCE (\w+): (\w+)/
-      if planner 
-        answer $1, planner.distance($2) || 'NO SUCH ROUTE'
-      end
-    when /\ASHORTEST (\w+): (\w) (\w)/
-      if planner 
-        answer $1, planner.shortest_distance($2, $3) || 'NO SUCH ROUTE'
-      end
-    when /\ACOUNT_ROUTES (\w+): (\w) (\w) (\d+) (\d+) (\d+)/
-      if planner 
-        opts = { :min_stops => $4.to_i, :max_stops => $5.to_i, :max_distance => $6.to_i }
-        answer $1, planner.trips_number($2, $3, opts)
-      end
-  end  
+  if line =~ /\AGRAPH: (.+)/
+    graph = RoutePlanner::Graph.parse($1)
+  else
+    # %1 - task, $2 - name, $3-$7 - params
+    params = line.scan(/\A(\w+) (\w+): (\w+)\s?(\w*)\s?(\w*)\s?(\w*)\s?(\w*)/).
+      flatten.reject { |s| s.empty? }
+    if params.length > 2
+      task_type = params[0]
+      task_name = params[1]
+      2.times { params.delete_at(0) }
+      task = RoutePlanner::Tasks::Task.create(task_type, [graph] + params)
+      answer(task_name, task.format_result) if task
+    end
+  end
 end

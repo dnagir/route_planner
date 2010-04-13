@@ -37,4 +37,13 @@ class TestShortestDistance < Test::Unit::TestCase
     assert_equal 30, shortest('B', 'A', CircleGraph)
   end
 
+  
+  def test_shortest_a2b_format
+    assert_equal '5', shortest_format('A', 'B')
+  end
+  
+  def test_shortest_a2z_format
+    assert_equal 'NO SUCH ROUTE', shortest_format('A', 'Z')
+  end
+
 end

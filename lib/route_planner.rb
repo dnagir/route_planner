@@ -4,3 +4,5 @@ require 'graph'
 require 'tasks/count_routes.rb'
 require 'tasks/distance.rb'
 require 'tasks/shortest.rb'
+
+require 'tasks/duration.rb'

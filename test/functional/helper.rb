@@ -3,6 +3,7 @@ require 'graph'
 require 'tasks/distance'
 require 'tasks/shortest'
 require 'tasks/count_routes'
+require 'route_planner'
 
 class Test::Unit::TestCase
 
@@ -38,6 +39,12 @@ class Test::Unit::TestCase
   
   def shortest_format(start, finish, graph = MainGraph)
     Tasks::ShortestTask.new(Graph.parse(graph), start, finish).format_result
+  end
+  
+  
+  
+  def duration(route, graph = MainGraph)
+    Tasks::DurationTask.new(Graph.parse(graph), route).calculate
   end
 
   

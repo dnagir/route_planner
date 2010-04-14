@@ -30,3 +30,6 @@ DISTANCE distance_ABCD: ABCD
 DISTANCE distance_DCBA: DCBA
 SHORTEST shortest_A2A: A A
 COUNT_ROUTES trips_A2A_8_stops: A A 1 8 999
+
+
+DURATION hahaha: AED

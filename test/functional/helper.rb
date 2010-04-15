@@ -1,8 +1,4 @@
 require 'test/unit'
-require 'graph'
-require 'tasks/distance'
-require 'tasks/shortest'
-require 'tasks/count_routes'
 require 'route_planner'
 
 class Test::Unit::TestCase

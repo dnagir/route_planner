@@ -15,6 +15,12 @@ module RoutePlanner::Tasks
       result ? result.to_s : 'NO SUCH ROUTE'
     end
     
+    
+    def self.inherited(subclass)
+      @tasks ||= { }
+      @tasks[subclass.name.split('::').last] = subclass
+    end
+    
   
     # Creates a task by its name or returns nil if no such task exists.
     # The name of the task corresponds to Ruby class after following changes:
@@ -24,13 +30,16 @@ module RoutePlanner::Tasks
     def self.create(name, params = [])
       # Normalise the name
       name = name.downcase.split('_').map { |s| s.capitalize }.join + 'Task'
-      return nil unless RoutePlanner::Tasks.constants.include?(name)
+      return nil unless @tasks.has_key? name
       
-      klass = RoutePlanner::Tasks.const_get(name)
+      klass = @tasks[name]#RoutePlanner::Tasks.const_get(name)
       arguments = params.each_with_index.map { |p, i| "params[#{i}]"}.join(',')
       klass.instance_eval("new(#{arguments})")
     end
     
   end
+
+  # Automatically include all the tasks
+  Dir["#{File.dirname(__FILE__)}/*.rb"].each {|file| require file }
   
 end
